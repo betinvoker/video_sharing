@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<!--Signup Modal-->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Зарегистрироваться</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'signup' %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="fname" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="fname" name="fname" required>
+          </div>
+          <div class="mb-3">
+            <label for="lname" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lname" name="lname" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="mail" aria-describedby="emailHelp" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="pwd" id="exampleInputPassword1" required>
+          </div>
+           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+   
+<!--Login Modal-->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Войти</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User Name</label>
+            <input type="text" class="form-control" name="uname" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="pwd" id="exampleInputPassword1">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            <button type="submit" class="btn btn-primary">Войти</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--Welcome Content-->
+<div class="card bg-dark text-white" style="margin-top: 50px;">
+  <img src="{% static 'img/rsue_home.jpg' %}" class="card-img" alt="...">
+  <div class="card-img-overlay d-flex flex-column justify-content-end">
+    <h1 class="card-title text-uppercase fw-bolder text-center text-shadow">Видеохостинг ростовского государственного экономического университета (РИНХ)</h1>
+    <h3 class="card-text fw-bolder text-center text-shadow">Предназначин для публикации обучающих видеороликов, а также видеоотчетов с различных мерепория, конференций, соревнований.</h3>  
+  </div>
+</div> 
+
+<div class="container">
+  <div class="row my-4">
+
+    {% for video in videos %}
+    <div class="col-3">
+
+      <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+        <img src="{% static video.thumbnail.url %}" class="w-100">
+      </a>
+      <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+        <h6>{{video.title}}</h6>  
+      </a>
+      <span class="text-muted">{{video.video_views.all.count}} views • {{video.pub_date}}</span>
+
+    </div>
+    {% endfor %}
+  <hr>
+</div>
+{% endblock %}

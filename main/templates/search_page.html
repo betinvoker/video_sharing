@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container my-4">
+    <h3 style="margin-top: 70px;">Результаты поиска: "{{query}}"</h3>
+    {% if video_objects %}
+    <div class="row my-4">
+        {% for object in video_objects %}
+        <div class="col-3">
+
+          <a href="{% url 'watch_video' object.id %}" style="text-decoration: none;">
+            <img src="{% static object.thumbnail.url %}" class="w-100">
+          </a>
+          <a href="{% url 'watch_video' object.id %}" style="text-decoration: none;">
+            <h6>{{object.title}}</h6>  
+          </a>
+          <span class="text-muted">{{object.video_views.all.count}} views • {{object.pub_date}}</span>
+
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="container">
+        <h5>Нет результатов.</h5>
+    </div>
+    {% endif %}
+</div>  
+{% endblock %}

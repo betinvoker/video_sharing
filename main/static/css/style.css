@@ -1,0 +1,21 @@
+nav {
+    background-color: #0e1060;
+}
+
+.nav-padding {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.nav-link {
+    color: white;
+}
+
+.margin-top50 {
+    margin-top: 50px;
+}
+
+.text-shadow {
+    color: #343691;
+    -webkit-text-stroke: 0.2px #ffffff;
+}
