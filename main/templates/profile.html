@@ -7,170 +7,112 @@
   <div class="row" style="margin-top: 70px;">
     <div class="col-3">
       <img src="{% static user_data.profile_pic.url %}" class="img-thumbnail" style="width: 150px;height: 200px;"> 
-
     </div>
-    <div class="col">
-      <h2 style="margin-top: 80px;" >{{session_obj.first_name}} {{session_obj.last_name}}</h2>
-      <span class="text-muted"><span class="text-muted" id="count">{{user_data.subscribers.count}}</span> Subscribers</span>
-      {% if session_obj != request.user %}
-      {% if subscribed %}
-      <a id="sub_btn" class="btn btn-outline-danger mx-3">Unsubscribe</a>
-      {% else %}
-      <a id="sub_btn" class="btn btn-outline-danger mx-3">Subscribe</a>
-      {% endif %}
-      {% endif %}
+    <div class="col-9">
+      <dl class="row">
+        <dd class="col-sm-12"><h2>{{session_obj.first_name}} {{session_obj.last_name}}</h2></dd>
+
+        <dt class="col-sm-2">Subscribers :</dt>
+        <dd class="col-sm-10"><span class="text-muted" id="count">{{user_data.subscribers.count}}</span></dd>
+
+        <dt class="col-sm-2">Описание :</dt>
+        <dd class="col-sm-10">{{user_data.about}}</dd>
+
+        <dt class="col-sm-2">Email :</dt>
+        <dd class="col-sm-10"><a href="mailto:{{session_obj.email}}">{{session_obj.email}}</a></dd>
+      </dl>
     </div>
   </div>
-</div>
+  <!--End of Profile Image and Name-->
 
-<!--End of Profile Image and Name-->
-<hr>
-<div class="container">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Главная</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Видео</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">О пользователе</a>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-      <h3 class="my-3">Видео по категориям</h3>
-      <hr>
+  <hr align="right" size="3" color="#0000dd" />
 
-      {% if sci %}
-      <div class="row">
-        <h4 class="text-primary">Science & Technology</h4>
-
-        {% for v in sci %}
-        <div class="col-3">
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" style="width: 100%;" class="img-thumbnail"></a>
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
-          <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
-        </div>
-        {% endfor %}
-
-      </div>
-      <hr>
-      {% endif %}
-
-
-
-      {% if blogs %}
-      <div class="row">
-        <h4 class="text-primary">Blogs</h4>
-
-        {% for v in blogs %}
-        <div class="col-3">
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" style="width: 100%;" class="img-thumbnail"></a>
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
-          <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
-        </div>
-        {% endfor %}
-
-      </div>
-      <hr>
-      {% endif %}
-
-
-
-
-      {% if food %}
-      <div class="row">
-        <h4 class="text-primary">Food</h4>
-
-        {% for v in food%}
-        <div class="col-3">
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" class="img-thumbnail w-75"></a>
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
-          <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
-        </div>
-        {% endfor %}       
-
-      </div>
-      <hr>
-      {% endif %}
-
-
-      {% if edu %}
-      <div class="row">
-        <h4 class="text-primary">Education</h4>
-
-        {% for v in edu%}
-        <div class="col-3">
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" class="img-thumbnail w-75"></a>
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
-          <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
-        </div>
-        {% endfor %}       
-
-      </div>
-      <hr>
-      {% endif %}
-
-
-      {% if fashion %}
-      <div class="row">
-        <h4 class="text-primary">Fashion</h4>
-
-        {% for v in fashion %}
-        <div class="col-3">
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" class="img-thumbnail w-75"></a>
-          <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h4>{{v.title}}</h4></a>
-          <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
-        </div>
-        {% endfor %}       
-
-      </div>
-      <hr>
-      {% endif %}
-
-
-
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-      <div class="container">
-        <h3 class="my-3">Загрузки</h3>
-        <div class="row my-3">
-          {% if videos %}
-          {% for video in videos %}
-          <div class="col-3">
-            <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;"><img src="{% static video.thumbnail.url %}" style="width: 100%;" class="img-thumbnail"></a>
-            <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;"><h6>{{video.title}}</h6></a>
-            <span class="text-muted">{{video.video_views.all.count}} views • {{video.pub_date}}</span>
-          </div>
-          {% endfor %}
-          {% else %}
-          <h3>Нет видео.</h3>
+  <div class="row my-4">
+    <div class="row">
+      <div class="col-3">
+        <h5 class="mb-1">Категории видео</h5>
+        <div class="list-group" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action active" id="list-all-list" data-bs-toggle="list" href="#list-all" role="tab" aria-controls="list-all">Все видео</a>
+          {% if sci %}
+          <a class="list-group-item list-group-item-action" id="list-technology-list" data-bs-toggle="list" href="#list-technology" role="tab" aria-controls="list-technology">Science & Technology</a>
+          {% endif %}
+          {% if blogs %}
+          <a class="list-group-item list-group-item-action" id="list-fashion-list" data-bs-toggle="list" href="#list-fashion" role="tab" aria-controls="list-fashion">Fashion</a>
+          {% endif %}
+          {% if food %}
+          <a class="list-group-item list-group-item-action" id="list-food-list" data-bs-toggle="list" href="#list-food" role="tab" aria-controls="list-food">Food</a>
+          {% endif %}
+          {% if edu %}
+          <a class="list-group-item list-group-item-action" id="list-education-list" data-bs-toggle="list" href="#list-education" role="tab" aria-controls="list-education">Education</a>
+          {% endif %}
+          {% if fashion %}
+          <a class="list-group-item list-group-item-action" id="list-blogs-list" data-bs-toggle="list" href="#list-blogs" role="tab" aria-controls="list-blogs">Blogs</a>
           {% endif %}
         </div>
-        <hr>
-
       </div>
-    </div>
-
-
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-      <div class="container my-4">
-        <p><b>Описание</b></p>
-        <pre style="font-family: tahoma; letter-spacing: 1px;"><p>{{user_data.about}}</p></pre>
-        <hr>
-
-        <p><b>Данные</b></p>
-        <p>Email: </p>
-        <a href="mailto:{{session_obj.email}}"><p>{{session_obj.email}}</p></a>
-        <hr>
-
-        <p><b>Ссылки: </b></p>
-        <p>Instagram</p>
-        <p>Github</p>
-        <p>Twitter</p>
-        <p>Facebook</p>
-        <hr>
+      <div class="col-9">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
+            <h4>Все загруженные видео</h4>
+            {% for v in videos %}
+            <div class="col-3">
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" style="width: 100%;" class="img-thumbnail"></a>
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
+              <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="tab-pane fade" id="list-technology" role="tabpanel" aria-labelledby="list-technology-list">
+            <h4>Science & Technology</h4>
+            {% for v in sci %}
+            <div class="col-3">
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" style="width: 100%;" class="img-thumbnail"></a>
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
+              <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="tab-pane fade" id="list-fashion" role="tabpanel" aria-labelledby="list-fashion-list">
+            <h4 class="text-primary">Fashion</h4>
+            {% for v in fashion %}
+            <div class="col-3">
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" class="img-thumbnail w-75"></a>
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h4>{{v.title}}</h4></a>
+              <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
+            </div>
+            {% endfor %}  
+          </div>
+          <div class="tab-pane fade" id="list-food" role="tabpanel" aria-labelledby="list-food-list">
+            <h4 class="text-primary">Food</h4>
+            {% for v in food%}
+            <div class="col-3">
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" class="img-thumbnail w-75"></a>
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
+              <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
+            </div>
+            {% endfor %}   
+          </div>
+          <div class="tab-pane fade" id="list-education" role="tabpanel" aria-labelledby="list-education-list">
+            <h4 class="text-primary">Education</h4>
+            {% for v in edu%}
+            <div class="col-3">
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" class="img-thumbnail w-75"></a>
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
+              <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
+            </div>
+            {% endfor %}   
+          </div>
+          <div class="tab-pane fade" id="list-blogs" role="tabpanel" aria-labelledby="list-blogs-list">
+            <h4 class="text-primary">Blogs</h4>
+            {% for v in blogs %}
+            <div class="col-3">
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><img src="{% static v.thumbnail.url %}" style="width: 100%;" class="img-thumbnail"></a>
+              <a href="{% url 'watch_video' v.id %}" style="text-decoration: none;"><h6>{{v.title}}</h6></a>
+              <span class="text-muted">{{v.video_views.all.count}} views • {{v.pub_date}}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
       </div>
     </div>
   </div>

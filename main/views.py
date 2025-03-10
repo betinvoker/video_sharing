@@ -138,7 +138,19 @@ def profile(request, session_username):
         subscribed = True
     else:
         subscribed = False
-    params = {'subscribed':subscribed,'session_obj':session_obj,'user_data':profile_data, 'videos': user_posts, 'sci': video_cat_science, 'blogs': video_cat_blogs, 'fashion': video_cat_fashion, 'edu':video_cat_education, 'food': video_cat_food}
+        
+    params = {
+        'subscribed':subscribed,
+        'session_obj':session_obj,
+        'user_data':profile_data,
+        'videos': user_posts,
+        'sci': video_cat_science,
+        'blogs': video_cat_blogs,
+        'fashion': video_cat_fashion,
+        'edu':video_cat_education,
+        'food': video_cat_food
+    }
+
     return render(request, 'profile.html', params)
 
 def dashboard(request, session_username):
