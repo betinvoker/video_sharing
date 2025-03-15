@@ -4,58 +4,66 @@
 {% block body %}
 <div class="container" style="margin-top: 50px;">
   <div class="row">
-    <div class="col-8">
-      <div class="container py-2 my-4 w-auto">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="ratio ratio-16x9">
-                <iframe src="{% static video.video_file.url %}" title="{{video.title}}" allowfullscreen></iframe>
-              </div>
+    <div class="col-12 col-md-8 py-2 my-4">
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="ratio ratio-16x9">
+              <iframe src="{% static video.video_file.url %}" title="{{video.title}}" allowfullscreen></iframe>
             </div>
           </div>
         </div>
+      </div>
   
-          <div class="card w-auto">
-            <div class="card-body">
-              <h5 class="card-title">{{video.title}}</h5>
-              <span class="badge rounded-pill bg-info text-dark">{{video.category}}</span>
-              <div class="row">
-                <div class="col-8">
-                  <span class="text-muted">{{video.video_views.all.count}} views • {{ video.pub_date }}</span>
-                </div>
-                <div class="col">
-  
-                {% if is_liked %}
-  
-                <a id="like_btn" class="btn btn-outline-danger mx-3"><span id="count_likes">{{video.likes.all.count}}</span>&nbsp&nbsp<span id="like_icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg>
-                </span></a>
-                {% else %}
-  
-                <a id="like_btn" class="btn btn-outline-danger mx-3"><span id="count_likes">{{video.likes.all.count}}</span>&nbsp&nbsp<span id="like_icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                  <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-                </span></a>
-                {% endif %}
-  
-                {% if is_disliked %}
-                <a id="dislike_btn" class="btn btn-outline-danger mx-3"><span id="count_dislikes">{{video.dislikes.all.count}}</span>&nbsp&nbsp<span id="dislike_icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
-                </svg>
-                </span></a>
-                {% else %}
-  
-                <a id="dislike_btn" class="btn btn-outline-danger mx-3">
-                  <span id="count_dislikes">{{video.dislikes.all.count}}</span>&nbsp&nbsp
-                  <span id="dislike_icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38.094 38.094 0 0 0 .867-.59Zm-.303-1.01c6.164-4.4 6.91-7.982 6.22-9.921C14.031 1.37 11.447.42 9.587 1.368L8.136 3.18l1.3 3.468a1 1 0 0 1-.104.906l-1.739 2.608.971 3.237Zm-1.25 1.137a36.027 36.027 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3 1.815 4.537Zm-2.3-3.06C.895 7.797.597 4.875 1.308 3.248c.756-1.73 2.768-2.577 4.456-2.127L4.732 2.36a1 1 0 0 0-.168.991L5.91 6.943l-1.305 2.61a1 1 0 0 0-.034.818l.442 1.106Z"/>
+      <div class="card w-auto">
+        <div class="card-body">
+          <h5 class="card-title">{{video.title}}</h5>
+          <span class="badge rounded-pill bg-info text-dark">{{video.category}}</span>
+          <div class="row">
+            <div class="col-8">
+              <span class="text-muted">{{video.video_views.all.count}} views • {{ video.pub_date }}</span>
+            </div>
+            <div class="col">
+            {% if is_liked %}
+              <a id="like_btn" class="btn btn-outline-danger mx-3">
+                <span id="count_likes">{{video.likes.all.count}}</span>&nbsp&nbsp
+                <span id="like_icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                   </svg>
-                  </span>
-                </a>
-                {% endif %}
+                </span>
+              </a>
+            {% else %}
+              <a id="like_btn" class="btn btn-outline-danger mx-3">
+                <span id="count_likes">{{video.likes.all.count}}</span>&nbsp&nbsp
+                <span id="like_icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                </span>
+              </a>
+            {% endif %}
+
+            {% if is_disliked %}
+              <a id="dislike_btn" class="btn btn-outline-danger mx-3">
+                <span id="count_dislikes">{{video.dislikes.all.count}}</span>&nbsp&nbsp
+                <span id="dislike_icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                  </svg>
+                </span>
+              </a>
+            {% else %}
+
+              <a id="dislike_btn" class="btn btn-outline-danger mx-3">
+                <span id="count_dislikes">{{video.dislikes.all.count}}</span>&nbsp&nbsp
+                <span id="dislike_icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38.094 38.094 0 0 0 .867-.59Zm-.303-1.01c6.164-4.4 6.91-7.982 6.22-9.921C14.031 1.37 11.447.42 9.587 1.368L8.136 3.18l1.3 3.468a1 1 0 0 1-.104.906l-1.739 2.608.971 3.237Zm-1.25 1.137a36.027 36.027 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3 1.815 4.537Zm-2.3-3.06C.895 7.797.597 4.875 1.308 3.248c.756-1.73 2.768-2.577 4.456-2.127L4.732 2.36a1 1 0 0 0-.168.991L5.91 6.943l-1.305 2.61a1 1 0 0 0-.034.818l.442 1.106Z"/>
+                </svg>
+                </span>
+              </a>
+            {% endif %}
             </div>
             <div class="col-12">
               <b>ОПИСАНИЕ</b>
@@ -66,15 +74,9 @@
         </div>
       </div>
     </div>
-  </div>
   
-  
-  
-  <div class="col-3" style="margin-left: 0px; width: 400px;">
-  
-    <div class="container my-3">
+    <div class="col-12 col-md-4 my-4" style="margin-left: 0px;">
       <h3>Далее</h3>
-  
       <div class="list-group my-2">
         {% for v in video.user.videopost_set.all %}
         <a href="{% url 'watch_video' v.id %}" class="list-group-item list-group-item-action" aria-current="true">
@@ -86,44 +88,34 @@
           <small>Наслаждайся видео с РГЭУ (РИНХ)</small>
         </a>
         {% endfor %}
-  
-  
       </div>
-  
     </div>
-  
-    <div class="container my-4">
-      <!--Comments of this video-->
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-              <b>КОММЕНТАРИИ (<span id='count_comment'>{{comments.count}}</span>)</b>
-            </button>
-          </h2>
-          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="container my-2">
-              <ul class="list-group" id="menu">
-                {% for comment in comments %}
-                <b>{{comment}}</b>  
-                <li class="list-group-item">{{comment.comment}}</li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="accordion-body">
-              <form id="my_form">
-                <textarea class="form-control" name="comment" id="comment" placeholder="Напишите Ваш комментарий"></textarea>
-                <input class="btn btn-outline-success my-3" id="send_btn" type="submit" value="Комментировать">
-              </form>
-  
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <form id="my_form">
+        <textarea class="form-control" name="comment" id="comment" placeholder="Напишите Ваш комментарий"></textarea>
+        <input class="btn btn-outline-success my-3" id="send_btn" type="submit" value="Комментировать">
+      </form>
+      <b>КОММЕНТАРИИ (<span id='count_comment'>{{comments.count}}</span>)</b>
+      <br><br>
+      {% for comment in comments %}
+      <div class="d-flex flex-start mb-3">
+        <div class="card w-100">
+          <div class="card-body p-3">
+            <div class="">
+              <h5>{{ comment.user }}</h5>
+              <p class="small">{{ comment.date_create }}</p>
+              <p>
+                {{ comment.comment }}
+              </p>
             </div>
           </div>
         </div>
-  
       </div>
+      {% endfor %}
     </div>
-  
-  </div>
   </div>
 </div>
 
