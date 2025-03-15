@@ -235,19 +235,6 @@ def delete_video(request):
     else:
         return JsonResponse({'status': 'not ok'})
 
-def signup(request):
-    if request.method == 'POST':
-        first_name = request.POST['fname']
-        last_name = request.POST['lname']
-        mail = request.POST['mail']
-        pwd = request.POST['pwd']
-        new_user = User.objects.create_user(f'{first_name.lower()}', mail, pwd)
-        new_user.first_name = first_name
-        new_user.last_name = last_name
-        new_user.save()
-        messages.success(request, 'Аккаунт создан успешно.')
-    return redirect('home')
-
 def user_login(request):
     if not request.user.is_authenticated:
 

@@ -1,45 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body %}
-<!--Signup Modal-->
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Зарегистрироваться</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="{% url 'signup' %}" method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="fname" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="fname" name="fname" required>
-          </div>
-          <div class="mb-3">
-            <label for="lname" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lname" name="lname" required>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="mail" aria-describedby="emailHelp" required>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="pwd" id="exampleInputPassword1" required>
-          </div>
-           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-          </div>
-        </form>
-      </div>
-
-    </div>
-  </div>
-</div>
-   
+{% block body %}  
 <!--Login Modal-->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -71,8 +33,22 @@
   </div>
 </div>
 
+{% if messages %}
+<div class="container-fluid">
+  <div class="row">
+    <ul class="messages">
+      {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-danger {{ message.tags }}" role="alert" {% endif %}>
+        {{ message }}
+      </div>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
 <!--Welcome Content-->
-<div class="card bg-dark text-white" style="margin-top: 50px;">
+<div class="card bg-dark text-white" {% if messages %} style="margin-top: 0px;" {% else %} style="margin-top: 50px;" {% endif %}>
   <img src="{% static 'img/rsue_home.jpg' %}" class="card-img" alt="...">
   <div class="card-img-overlay d-flex flex-column justify-content-end">
     <h3 class="card-title text-uppercase fw-bolder text-center text-shadow">Видеохостинг ростовского государственного экономического университета (РИНХ)</h3>
