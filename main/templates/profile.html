@@ -15,6 +15,19 @@
         <dt class="col-sm-2">Subscribers :</dt>
         <dd class="col-sm-10"><span class="text-muted" id="count">{{user_data.subscribers.count}}</span></dd>
 
+        {% if user_data.faculty.name != "Нет" %}
+        <dt class="col-sm-2">Факультет :</dt>
+        <dd class="col-sm-10">{{user_data.faculty.name}}</dd>
+        {% endif %}
+
+        <dt class="col-sm-2">Направление :</dt>
+        <dd class="col-sm-10">{{user_data.about}}</dd>
+
+        {% if user_data.year_entering|date:"d.m.Y" != "01.01.1970" %}
+        <dt class="col-sm-2">Год поступления :</dt>
+        <dd class="col-sm-10">{{user_data.year_entering|date:"d.m.Y"}}</dd>
+        {% endif %}
+
         <dt class="col-sm-2">Описание :</dt>
         <dd class="col-sm-10">{{user_data.about}}</dd>
 

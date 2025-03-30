@@ -3,6 +3,14 @@ from datetime import date
 from django.contrib.auth.models import User
 # Create your models here.
 
+class Faculty(models.Model):
+    name = models.CharField("Факультет", max_length=256, blank=False)
+    logo = models.ImageField("Герб факультета", upload_to='pic/faculty/', blank=True)
+    date_create = models.DateField("Дата создания записи", default=date.today)
+
+    def __str__(self):
+        return f"{self.name} {self.logo} {self.date_create}"
+
 class VideoPost(models.Model):
     LIST_CATEGORIES = [
         ("Science & Technology","Science & Technology"),
@@ -29,6 +37,9 @@ class VideoPost(models.Model):
 class UserData(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField()
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, default=1)
+    #direction = models.CharField("Направление", blank=True)
+    year_entering = models.DateField("Год поступления в университет", default='1970-01-01', blank=True)
     profile_pic = models.ImageField(upload_to='pic/', default='pic/default.jpg')
     subscribers = models.ManyToManyField(User, related_name='subscribers')
 
