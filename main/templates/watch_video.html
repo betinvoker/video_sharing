@@ -23,6 +23,7 @@
             <div class="col-8">
               <span class="text-muted">{{video.video_views.all.count}} views • {{ video.pub_date }}</span>
             </div>
+            {% if not session_obj.0 %}
             <div class="col">
             {% if is_liked %}
               <a id="like_btn" class="btn btn-outline-danger mx-3">
@@ -65,6 +66,7 @@
               </a>
             {% endif %}
             </div>
+            {% endif %}
             <div class="col-12">
               <b>ОПИСАНИЕ</b>
               <br>
@@ -94,10 +96,13 @@
 
   <div class="row">
     <div class="col-12 col-md-8">
+      {% if not session_obj.0 %}
       <form id="my_form">
         <textarea class="form-control" name="comment" id="comment" placeholder="Напишите Ваш комментарий"></textarea>
         <input class="btn btn-outline-success my-3" id="send_btn" type="submit" value="Комментировать">
       </form>
+      {% endif %}
+      
       <b>КОММЕНТАРИИ (<span id='count_comment'>{{comments.count}}</span>)</b>
       <br><br>
       {% for comment in comments %}

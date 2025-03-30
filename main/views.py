@@ -9,14 +9,9 @@ from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def home(request):
-    if not request.user.is_authenticated:
-        demo_videos = VideoPost.objects.all().order_by('-id')[:5]
-        params = {'videos': demo_videos}
-        return render(request, 'welcome.html', params)
-    else:
-        all_videos = VideoPost.objects.all().order_by('-id')
-        params = {'all_videos': all_videos}
-        return render(request, 'home.html', params)
+    all_videos = VideoPost.objects.all().order_by('-id')
+    params = {'all_videos': all_videos}
+    return render(request, 'home.html', params)
 
 def search(request):
     query = request.GET['search_query']
@@ -42,22 +37,24 @@ def upload_video(request):
     return render(request, 'upload_video.html')
 
 def watch_video(request, video_id):
-    try:
-        video_obj = VideoPost.objects.get(id=video_id)
-    except ObjectDoesNotExist:
-        return render(request, '404.html')
+    video_obj = VideoPost.objects.get(id=video_id)
+
     try:
         session_obj = User.objects.get(username=request.user.username)
     except:
-        messages.warning(request, 'Вы не зарегистрированы, чтобы посмотреть это видео.')
-        return redirect('home')
+        session_obj = User.objects.filter(id=27)
+
+    video_obj = VideoPost.objects.get(id=video_id)
 
     video_comments = Comment.objects.filter(post=video_obj).order_by('-id')
 
     # Increase Views of Video if User visit this page
 
-    if request.user not in video_obj.video_views.all():
-        video_obj.video_views.add(request.user)
+    try:
+        if request.user not in video_obj.video_views.all():
+            video_obj.video_views.add(request.user)
+    except:
+        messages.error(request, 'Ваш просмотр не будет засчитан.')
 
     # Increase Likes of Video if User like this video
 
@@ -66,7 +63,7 @@ def watch_video(request, video_id):
         is_liked = True
     else:
         is_liked = False
-    params = {'video':video_obj, 'comments': video_comments, 'is_liked':is_liked}
+    params = {'session_obj':session_obj, 'video':video_obj, 'comments': video_comments, 'is_liked':is_liked}
     return render(request, 'watch_video.html', params)
 
     is_disliked = False
@@ -74,7 +71,7 @@ def watch_video(request, video_id):
         is_disliked = True
     else:
         is_disliked = False
-    params = {'video':video_obj, 'comments': video_comments, 'is_disliked':is_disliked}
+    params = {'session_obj':session_obj, 'video':video_obj, 'comments': video_comments, 'is_disliked':is_disliked}
     return render(request, 'watch_video.html', params)
 
 def add_comment(request):

@@ -11,6 +11,15 @@ class Faculty(models.Model):
     def __str__(self):
         return f"{self.name} {self.logo} {self.date_create}"
 
+class Direction(models.Model):
+    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    name = models.CharField("Наименование специальности", max_length=1024, blank=False)
+    code = models.CharField("Код специальности", max_length=18, blank=False)
+    date_create = models.DateField("Дата создания записи", default=date.today)
+
+    def __str__(self):
+        return f"{self.faculty.name} {self.name} {self.code} {self.date_create}"
+
 class VideoPost(models.Model):
     LIST_CATEGORIES = [
         ("Science & Technology","Science & Technology"),
@@ -37,8 +46,7 @@ class VideoPost(models.Model):
 class UserData(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField()
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, default=1)
-    #direction = models.CharField("Направление", blank=True)
+    direction = models.ForeignKey(Direction, on_delete=models.CASCADE, default=5)
     year_entering = models.DateField("Год поступления в университет", default='1970-01-01', blank=True)
     profile_pic = models.ImageField(upload_to='pic/', default='pic/default.jpg')
     subscribers = models.ManyToManyField(User, related_name='subscribers')

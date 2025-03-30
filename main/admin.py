@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Faculty, VideoPost, Comment, UserData
+from .models import Faculty, Direction, VideoPost, Comment, UserData
 from django.utils.html import mark_safe
 
 # Register your models here.
@@ -14,7 +14,7 @@ class VideoPostAdmin(admin.ModelAdmin):
 @admin.register(Faculty)
 class FacultyAdmin(admin.ModelAdmin):
     list_display = ("name", "display_logo", "date_create")
-    readonly_fields = ("display_logo",)
+    readonly_fields = ("id", "display_logo",)
 
     def display_logo(self, obj):
         if obj:
@@ -22,5 +22,15 @@ class FacultyAdmin(admin.ModelAdmin):
         return "Нет логотипа"
 
     display_logo.short_description = "Герб факультета"
+
+@admin.register(Direction)
+class DirectionAdmin(admin.ModelAdmin):
+    list_display = ("faculty_name", "name", "code", "date_create")
+    readonly_fields = ("id",)
+
+    def faculty_name(self, obj):
+        if obj:
+            return obj.faculty.name
+        return "Нет названия направления"
 
 admin.site.register(UserData)
