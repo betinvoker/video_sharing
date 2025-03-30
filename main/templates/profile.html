@@ -5,16 +5,16 @@
 <!--Profile Image and Name-->
 <div class="container my-4">
   <div class="row" style="margin-top: 70px;">
-    <div class="col-3">
+    <div class="col-sm-4 col-md-2 col-lg-2">
       <img src="{% static user_data.profile_pic.url %}" class="img-thumbnail" style="width: 150px;height: 200px;"> 
     </div>
-    <div class="col-9">
+    <div class="col-sm-8 col-md-8 col-lg-8">
       <dl class="row">
         <dd class="col-sm-12"><h2>{{session_obj.first_name}} {{session_obj.last_name}}</h2></dd>
 
         {% if user_data.direction.faculty.id != 9 %}
         <dt class="col-sm-2">Факультет :</dt>
-        <dd class="col-sm-10">{{user_data.direction.faculty.name}}</dd>
+        <dd class="col-sm-10">"{{user_data.direction.faculty.name}}"</dd>
         {% endif %}
 
         {% if user_data.direction.id != 5 %}
@@ -37,6 +37,9 @@
         <dd class="col-sm-10"><span class="text-muted" id="count">{{user_data.subscribers.count}}</span></dd>
 
       </dl>
+    </div>
+    <div class="col-sm-3 col-md-2 col-lg-1 offset-lg-1">
+      <img src="{% static user_data.direction.faculty.logo.url %}" class="img-thumbnail" style="width: 90px;height: 90px;">  
     </div>
   </div>
   <!--End of Profile Image and Name-->
